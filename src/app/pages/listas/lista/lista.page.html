@@ -7,9 +7,9 @@
         class="song-header"
         button
         (click)="section.open = !section.open">
-        <ion-icon name="musical-notes-outline" slot="start" class="section-icon"></ion-icon>
+        <ion-icon name="musical-notes" slot="start" class="section-icon"></ion-icon>
         <ion-label class="song-label">{{ section.name }}</ion-label>
-        <ion-icon slot="end" [name]="section.open ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+        <ion-icon slot="end" [name]="section.open ? 'chevron-up' : 'chevron-down'"></ion-icon>
       </ion-item>
 
       <div *ngIf="section.open" class="song-content">

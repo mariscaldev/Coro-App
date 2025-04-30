@@ -4,13 +4,13 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
-  musicalNotesOutline,
+  musicalNotes,
   musicalNotesSharp,
-  listOutline,
-  settingsOutline,
-  arrowBackCircleOutline,
-  chevronDownOutline,
-  chevronUpOutline
+  list,
+  settings,
+  arrowBackCircle,
+  chevronDown,
+  chevronUp
 } from 'ionicons/icons';
 
 @Component({
@@ -28,19 +28,19 @@ import {
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Canciones', url: '/canciones', icon: 'musical-notes-outline' },
-    { title: 'Lista Semanal', url: '/listas', icon: 'list-outline' },
+    { title: 'Canciones', url: '/canciones', icon: 'musical-notes' },
+    { title: 'Lista Semanal', url: '/listas', icon: 'list' },
   ];
 
   constructor() {
     addIcons({
-      musicalNotesOutline,
+      musicalNotes,
       musicalNotesSharp,
-      listOutline,
-      settingsOutline,
-      arrowBackCircleOutline,
-      chevronDownOutline,
-      chevronUpOutline,
+      list,
+      settings,
+      arrowBackCircle,
+      chevronDown,
+      chevronUp,
     });
   }
 }
