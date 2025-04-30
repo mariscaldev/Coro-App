@@ -38,7 +38,12 @@ export class ListasPage implements OnInit {
   ngOnInit() {
     this.apiService.getListas().subscribe({
       next: (data) => {
-        this.listas = data.sort((a: any, b: any) => a.nombre.localeCompare(b.nombre));
+        // 👉 Filtrar solo listas activas (estado === true)
+        const listasActivas = data.filter((lista: any) => lista.estado === true);
+  
+        this.listas = listasActivas.sort((a: any, b: any) =>
+          a.nombre.localeCompare(b.nombre)
+        );
         this.filteredListas = this.listas;
         this.loading = false;
       },
@@ -48,7 +53,7 @@ export class ListasPage implements OnInit {
       }
     });
   }
-
+  
   filterListas() {
     this.filteredListas = this.searchTerm
       ? this.listas.filter(lista =>

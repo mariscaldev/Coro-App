@@ -1,17 +1,18 @@
 <app-navbar [title]="cancion?.nombre" [showBack]="true" [backUrl]="volverUrl"></app-navbar>
 
 <ion-content class="ion-padding" *ngIf="cancion">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ cancion.nombre }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p><strong>Introducción:</strong> {{ cancion.introduccion }}</p>
-      <p><strong>Letra 1:</strong> {{ cancion.letra1 }}</p>
-      <p><strong>Interludio:</strong> {{ cancion.interludio }}</p>
-      <p><strong>Letra 2:</strong> {{ cancion.letra2 }}</p>
-      <p><strong>Final:</strong> {{ cancion.final }}</p>
-      <p><strong>Etiqueta:</strong> {{ cancion.etiqueta }}</p>
-    </ion-card-content>
-  </ion-card>
+  <ion-list lines="none" class="song-list">
+    <ng-container *ngFor="let section of sections">
+      <ion-item button (click)="section.open = !section.open" class="song-header">
+        <ion-icon name="musical-notes-outline" slot="start" class="section-icon"></ion-icon>
+        <ion-label class="song-label">{{ section.name }}</ion-label>
+        <ion-icon slot="end" [name]="section.open ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+      </ion-item>
+      <div *ngIf="section.open" class="song-content">
+        <ion-text>
+          <pre class="song-item">{{ section.content }}</pre>
+        </ion-text>
+      </div>
+    </ng-container>
+  </ion-list>
 </ion-content>

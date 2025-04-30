@@ -62,17 +62,24 @@
     color: var(--ion-color-primary);
   }
   
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+  }
+  
   .center-content ion-button {
     width: 80%;
     max-width: 500px;
-    margin: 1em 1em;
     font-weight: bold;
     animation: bounceIn 0.9s ease forwards;
-    /* 👈 Rebotar botón */
     display: flex;
     justify-content: center;
     align-items: center;
   }
+  
   
   /* Rebote inicial del botón */
   @keyframes bounceIn {
