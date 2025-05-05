@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { IonicModule } from '@ionic/angular'; // << Importa todo Ionic de una sola vez
+import { IonicModule, LoadingController } from '@ionic/angular'; // << Importa todo Ionic de una sola vez
 import { CommonModule, NgIf, NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // ⬅️ ESTA ES LA CORRECTA
 import { Router } from '@angular/router';
@@ -33,23 +33,33 @@ export class ListasPage implements OnInit {
   searchTerm: string = '';
   loading = true;
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private loadingCtrl: LoadingController
+  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando listas...',
+      spinner: 'circles',
+      cssClass: 'custom-loading'
+    });
+
+    await loading.present();
+
     this.apiService.getListas().subscribe({
       next: (data) => {
-        // 👉 Filtrar solo listas activas (estado === true)
         const listasActivas = data.filter((lista: any) => lista.estado === true);
-
         this.listas = listasActivas.sort((a: any, b: any) =>
           a.nombre.localeCompare(b.nombre)
         );
         this.filteredListas = this.listas;
-        this.loading = false;
+        loading.dismiss().then(() => this.loading = false); // <-- IMPORTANTE
       },
       error: (error) => {
         console.error('Error cargando listas:', error);
-        this.loading = false;
+        loading.dismiss().then(() => this.loading = false); // <-- También aquí
       }
     });
   }

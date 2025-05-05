@@ -15,12 +15,6 @@
 
   <!-- Contenido desplazable -->
   <div class="content-wrapper">
-    <ion-loading
-      *ngIf="loading"
-      message="Cargando canciones..."
-      spinner="circles"
-    ></ion-loading>
-
     <div *ngIf="!loading && filteredSongs.length === 0" class="no-results">
       <div class="emoji">😔</div>
       <div class="message">No se encontraron canciones</div>

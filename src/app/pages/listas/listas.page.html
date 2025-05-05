@@ -12,11 +12,6 @@
       >
       </ion-searchbar>
     </div>
-    <ion-loading
-      *ngIf="loading"
-      message="Cargando listas..."
-      spinner="circles"
-    ></ion-loading>
 
     <div *ngIf="!loading && filteredListas.length === 0" class="no-results">
       <div class="emoji">😔</div>

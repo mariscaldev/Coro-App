@@ -2,7 +2,7 @@ import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from 'src/app/shared/components/navbar/navbar.component';
@@ -37,18 +37,30 @@ export class CancionesPage implements OnInit {
   searchTerm: string = '';
   loading = true;
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(
+    private apiService: ApiService, 
+    private router: Router,
+    private loadingCtrl: LoadingController
+  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando canciones...',
+      spinner: 'circles',
+      cssClass: 'custom-loading'
+    });
+  
+    await loading.present();
+  
     this.apiService.getCanciones().subscribe({
       next: (data) => {
         this.songs = data.sort((a: any, b: any) => a.nombre.localeCompare(b.nombre));
         this.filteredSongs = this.songs;
-        this.loading = false;
+        loading.dismiss().then(() => this.loading = false); // <-- AQUÍ
       },
       error: (error) => {
         console.error('Error cargando canciones:', error);
-        this.loading = false;
+        loading.dismiss().then(() => this.loading = false); // <-- TAMBIÉN AQUÍ
       }
     });
   }
