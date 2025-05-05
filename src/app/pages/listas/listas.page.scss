@@ -1,77 +1,117 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 ion-content.background-content {
-    --background: none;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  --background: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay {
+  background: url('../../../assets/fondo_coro.png') no-repeat top center / cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  filter: brightness(50%);
+}
+
+/* 🔵 Buscador fijo y centrado */
+.searchbar-fixed {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+}
+
+.searchbar-fixed ion-searchbar {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* 🔵 Contenedor desplazable */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 10px;
+}
+
+/* 🔵 Listas centradas */
+.song-list {
+  display: flex;
+  justify-content: center;
+}
+
+.song-item {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px;
+  margin: 3px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.1);
   }
-  
-  .overlay {
-    background: url('../../../assets/fondo_coro.png') no-repeat top center / cover;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    filter: brightness(50%);
-  }
-  
-  .content-wrapper {
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    overflow-y: auto;
-    padding: 0 10px;
-  }
-  
-  .no-results {
-    color: white;
-    text-align: center;
-    margin-top: 30px;
-    font-size: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .emoji {
-    font-size: 50px;
-    margin-bottom: 10px;
-  }
-  
-  .message {
-    font-size: 18px;
-    color: #cccccc;
-  }
-  
-  .song-list {
-    margin-bottom: 10px;
-  }
-  
-  .song-item {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-  
-    &:hover {
-      transform: scale(1.02);
-      background: rgba(255, 255, 255, 0.1);
-    }
-  }
-  
-  .song-label {
-    color: white;
-    font-size: 18px;
-  }
-  
-  .song-date {
-    color: #cccccc;
-    font-size: 14px;
-  }
-  
+}
+
+.song-label {
+  color: white;
+  font-size: 18px;
+}
+
+.song-date {
+  color: #cccccc;
+  font-size: 14px;
+}
+
+/* 🔵 Mensaje vacío centrado */
+.no-results {
+  color: white;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.emoji {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.message {
+  font-size: 18px;
+  color: #cccccc;
+}
+
+ion-loading {
+  --spinner-color: white;
+  --background: rgba(0, 0, 0, 0.7);
+  --width: 200px;
+  --height: 200px;
+  text-align: center;
+}

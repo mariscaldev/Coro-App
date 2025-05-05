@@ -130,11 +130,14 @@ export class ListaPage implements OnInit {
       }
     }
 
-    this.sections = Object.entries(this.categorias).map(([key, name]) => ({
-      name,
-      songs: this.cancionesAgrupadas[+key] || [],
-      open: true
-    }));
+    this.sections = Object.entries(this.categorias).map(([key, name]) => {
+      const canciones = this.cancionesAgrupadas[+key] || [];
+      return {
+        name,
+        songs: canciones,
+        open: canciones.length > 0 // ✅ Solo abiertas si tienen canciones
+      };
+    });    
   }
 
   cancionesDisponibles(): boolean {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -13,6 +13,7 @@ import { NavbarComponent } from 'src/app/shared/components/navbar/navbar.compone
   templateUrl: './canciones.page.html',
   styleUrls: ['./canciones.page.scss'],
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
@@ -24,11 +25,13 @@ import { NavbarComponent } from 'src/app/shared/components/navbar/navbar.compone
       ])
     ])
   ],
-  imports: [IonicModule, CommonModule, FormsModule, NavbarComponent 
+  imports: [IonicModule, CommonModule, FormsModule, NavbarComponent
   ]
 })
 export class CancionesPage implements OnInit {
-
+  trackBySongId(index: number, song: any): number {
+    return song.id;
+  }
   songs: any[] = [];
   filteredSongs: any[] = [];
   searchTerm: string = '';
@@ -51,11 +54,12 @@ export class CancionesPage implements OnInit {
   }
 
   filterSongs() {
-    this.filteredSongs = this.searchTerm
-      ? this.songs.filter(song =>
-        song.nombre.toLowerCase().includes(this.searchTerm.toLowerCase())
-      )
-      : this.songs;
+    const term = this.removeDiacritics(this.searchTerm.toLowerCase());
+
+    this.filteredSongs = this.songs.filter(song => {
+      const nombreNormalizado = this.removeDiacritics(song.nombre.toLowerCase());
+      return nombreNormalizado.includes(term);
+    });
   }
 
   openSongPage(id: number) {
@@ -68,6 +72,10 @@ export class CancionesPage implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/cancion', id]);
     }, 200); // Espera breve para ver el efecto
+  }
+
+  removeDiacritics(text: string): string {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
 }

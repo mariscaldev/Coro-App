@@ -20,7 +20,7 @@ export class CancionPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -33,14 +33,37 @@ export class CancionPage implements OnInit {
     if (id) {
       this.apiService.getCancion(Number(id)).subscribe(data => {
         this.cancion = data;
+
+        // ⚙️ Inicializar secciones, pero plegar las vacías
         this.sections = [
-          { name: 'Introducción', content: data.introduccion || '', open: true },
-          { name: 'Letra y acordes', content: data.letra1 || '', open: true },
-          { name: 'Interludio', content: data.interludio || '', open: true },
-          { name: 'Letra y acordes', content: data.letra2 || '', open: true },
-          { name: 'Final', content: data.final || '', open: true },
+          {
+            name: 'Introducción',
+            content: data.introduccion || '',
+            open: !!(data.introduccion && data.introduccion.trim())
+          },
+          {
+            name: 'Letra y acordes',
+            content: data.letra1 || '',
+            open: !!(data.letra1 && data.letra1.trim())
+          },
+          {
+            name: 'Interludio',
+            content: data.interludio || '',
+            open: !!(data.interludio && data.interludio.trim())
+          },
+          {
+            name: 'Letra y acordes',
+            content: data.letra2 || '',
+            open: !!(data.letra2 && data.letra2.trim())
+          },
+          {
+            name: 'Final',
+            content: data.final || '',
+            open: !!(data.final && data.final.trim())
+          }
         ];
       });
     }
   }
+
 }

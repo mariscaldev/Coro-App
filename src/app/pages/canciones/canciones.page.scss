@@ -25,20 +25,22 @@ ion-content.background-content {
   filter: brightness(50%);
 }
 
-.search-bar-container {
-  position: relative;
-  z-index: 1;
-  padding: 10px;
+/* 🔵 Fijar y centrar el buscador */
+.searchbar-fixed {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
 }
 
-.search-bar {
+.searchbar-fixed ion-searchbar {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  max-width: 600px;
 }
 
+/* 🔵 Contenedor del contenido desplazable */
 .content-wrapper {
   position: relative;
   z-index: 1;
@@ -47,19 +49,20 @@ ion-content.background-content {
   padding: 0 10px;
 }
 
+/* 🔵 Centrar cada canción */
 .song-list {
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .song-item {
+  width: 100%;
+  max-width: 600px;
   background: rgba(255, 255, 255, 0.05);
-  /* Blanco semi-transparente */
   backdrop-filter: blur(8px);
-  /* Vidrio esmerilado */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  /* Borde sutil */
   padding: 12px;
-  margin: 8px 0;
+  margin: 3px 0;
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
@@ -81,6 +84,7 @@ ion-content.background-content {
   margin-right: 8px;
 }
 
+/* 🔵 Resultados vacíos centrados */
 .no-results {
   color: white;
   text-align: center;
@@ -90,6 +94,9 @@ ion-content.background-content {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .emoji {
@@ -100,13 +107,11 @@ ion-content.background-content {
 .message {
   font-size: 18px;
   color: #cccccc;
-  /* Gris claro */
 }
 
 ion-loading {
   --spinner-color: white;
   --background: rgba(0, 0, 0, 0.7);
-  /* Fondo oscuro semi transparente */
   --width: 200px;
   --height: 200px;
   text-align: center;

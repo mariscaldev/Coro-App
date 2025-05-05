@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForOf } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
@@ -19,7 +19,6 @@ import {
   imports: [
     IonicModule,
     NgForOf,
-    RouterOutlet,
     RouterLink,
     RouterLinkActive
   ],

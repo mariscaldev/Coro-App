@@ -25,7 +25,7 @@ import { NavbarComponent } from 'src/app/shared/components/navbar/navbar.compone
   ],
   imports: [IonicModule, CommonModule, NgIf, NgForOf, FormsModule, NavbarComponent // 👈 Agrega NgModel
   ]
-  
+
 })
 export class ListasPage implements OnInit {
   listas: any[] = [];
@@ -33,14 +33,14 @@ export class ListasPage implements OnInit {
   searchTerm: string = '';
   loading = true;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.apiService.getListas().subscribe({
       next: (data) => {
         // 👉 Filtrar solo listas activas (estado === true)
         const listasActivas = data.filter((lista: any) => lista.estado === true);
-  
+
         this.listas = listasActivas.sort((a: any, b: any) =>
           a.nombre.localeCompare(b.nombre)
         );
@@ -53,13 +53,18 @@ export class ListasPage implements OnInit {
       }
     });
   }
-  
+
   filterListas() {
-    this.filteredListas = this.searchTerm
-      ? this.listas.filter(lista =>
-          lista.nombre.toLowerCase().includes(this.searchTerm.toLowerCase())
-        )
-      : this.listas;
+    const term = this.removeDiacritics(this.searchTerm.toLowerCase());
+
+    this.filteredListas = this.listas.filter(lista => {
+      const nombreNormalizado = this.removeDiacritics(lista.nombre.toLowerCase());
+      return nombreNormalizado.includes(term);
+    });
+  }
+
+  removeDiacritics(text: string): string {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
   verLista(id: number) {
@@ -72,4 +77,24 @@ export class ListasPage implements OnInit {
       this.router.navigate(['/lista', id]);
     }, 200);
   }
+
+  refrescar(event: any) {
+    this.apiService.getListas().subscribe({
+      next: (data) => {
+        const listasActivas = data.filter((lista: any) => lista.estado === true);
+
+        this.listas = listasActivas.sort((a: any, b: any) =>
+          a.nombre.localeCompare(b.nombre)
+        );
+        this.filteredListas = this.listas;
+        event.target.complete(); // ✅ Finaliza la animación del refresher
+      },
+      error: (error) => {
+        console.error('Error actualizando listas:', error);
+        event.target.complete(); // ❗️Asegúrate de finalizar también en caso de error
+      }
+    });
+  }
+
+
 }

@@ -1,13 +1,20 @@
 .song-header {
   --background: var(--ion-color-dark);
   border-radius: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 3px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: background-color 0.2s ease;
-}
 
-.song-header:hover {
-  --background: var(--ion-color-primary);
+  &:hover {
+    --background: var(--ion-color-primary);
+  }
+
+  &:focus,
+  &:active,
+  &.ion-focused {
+    --background: var(--ion-color-dark) !important;
+    box-shadow: none !important;
+  }
 }
 
 .section-icon {
@@ -28,22 +35,20 @@
   border-left: 4px solid var(--ion-color-primary);
   border-radius: 0 0 8px 8px;
   margin: -8px 0 12px 0;
-  //padding: 0.7rem 1rem 1rem;
 }
 
 .glass-song {
   background: rgba(245, 245, 245, 0.9);
   border-radius: 8px;
-  margin-bottom: 6px;
   cursor: pointer;
   transition: transform 0.2s ease;
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-}
 
-.glass-song:hover {
-  transform: scale(1.03);
-  background: rgba(245, 245, 245, 1);
+  &:hover {
+    transform: scale(1.03);
+    background: rgba(245, 245, 245, 1);
+  }
 }
 
 .no-results {
