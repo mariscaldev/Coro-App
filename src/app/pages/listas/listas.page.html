@@ -2,17 +2,19 @@
 
 <ion-content fullscreen="true" class="background-content">
   <div class="overlay"></div>
-  <div class="content-wrapper">
-    <div class="searchbar-fixed">
-      <ion-searchbar
-        [(ngModel)]="searchTerm"
-        (ionInput)="filterListas()"
-        placeholder="Buscar lista"
-        showClearButton="always"
-      >
-      </ion-searchbar>
-    </div>
 
+  <!-- Fijamos el buscador arriba -->
+  <div class="searchbar-fixed">
+    <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionInput)="filterListas()"
+      placeholder="Buscar lista"
+      showClearButton="always"
+    ></ion-searchbar>
+  </div>
+
+  <!-- Contenido desplazable -->
+  <div class="content-wrapper">
     <div *ngIf="!loading && filteredListas.length === 0" class="no-results">
       <div class="emoji">😔</div>
       <div class="message">No se encontraron listas</div>
@@ -24,10 +26,6 @@
           <span class="song-label">
             <b class="fas fa-list icon-musical-note"></b> {{ lista.nombre }}
           </span>
-          <br />
-          <small class="song-date"
-            >{{ lista.fecha | date: 'dd/MM/yyyy' }}</small
-          >
         </div>
       </div>
     </div>
